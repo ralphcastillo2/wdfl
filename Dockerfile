@@ -12,15 +12,11 @@ RUN npm ci
 COPY . .
 
 # Build the application
+ENV NODE_ENV=production
 RUN npm run build
 
 # Expose the port
 EXPOSE 3000
-
-# Set environment variables
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
-ENV NODE_ENV production
 
 # Start the application
 CMD ["npm", "start"] 
