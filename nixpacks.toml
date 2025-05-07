@@ -11,4 +11,5 @@ cmds = ['npm run build']
 cmd = 'npm start'
 
 [variables]
-NODE_ENV = 'production' 
+NODE_ENV = 'production'
+MONGODB_URI = '${MONGODB_URI}' 
