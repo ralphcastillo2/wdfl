@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001 -H 0.0.0.0",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -H 0.0.0.0",
     "lint": "next lint"
   },
   "dependencies": {
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",
-    "next": "14.1.0",
+    "next": "14.2.28",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ts-node": "^10.9.2"
@@ -21,10 +21,16 @@
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "autoprefixer": "^10.4.17",
-    "eslint": "^8.56.0",
-    "eslint-config-next": "14.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.28",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
+  },
+  "resolutions": {
+    "glob": "^10.3.10",
+    "rimraf": "^5.0.5",
+    "@humanwhocodes/config-array": "^0.11.0",
+    "@humanwhocodes/object-schema": "^1.2.1"
   }
 }
