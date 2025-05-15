@@ -6,8 +6,9 @@ WORKDIR /app
 # Copy package files
 COPY package.json yarn.lock ./
 
-# Install dependencies
-RUN yarn install --frozen-lockfile
+# Install dependencies with cleanup
+RUN yarn install --frozen-lockfile && \
+    yarn cache clean
 
 # Copy the rest of the application
 COPY . .
@@ -35,6 +36,10 @@ COPY --from=builder /app/.env.local ./.env.local
 # Set environment variables
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# Clean up
+RUN yarn cache clean && \
+    rm -rf /tmp/*
 
 # Expose the port
 EXPOSE 3000
