@@ -6,9 +6,9 @@ import { getAllCategories } from '@/lib/categories';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     // Connect to the database
-    const { db } = await connectToDatabase();
+    const connection = await connectToDatabase();
     
-    if (!db) {
+    if (!connection) {
       throw new Error('Database connection failed');
     }
 
