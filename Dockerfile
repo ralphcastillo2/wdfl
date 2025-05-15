@@ -3,14 +3,20 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
+# Clean up any existing files and caches
+RUN rm -rf /tmp/* && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /usr/local/share/.cache/yarn
+
 # Copy package files
 COPY package.json yarn.lock ./
 
 # Install dependencies with aggressive cleanup
-RUN yarn install --frozen-lockfile --network-timeout 100000 && \
+RUN yarn install --frozen-lockfile --network-timeout 100000 --no-optional && \
     yarn cache clean && \
     rm -rf /tmp/* && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apk/* && \
+    rm -rf /usr/local/share/.cache/yarn
 
 # Copy the rest of the application
 COPY . .
@@ -23,12 +29,19 @@ RUN echo "MONGODB_URI=mongodb+srv://dbdirectory1:sWC80Q8x21BrkqGi@cluster0.dsxjw
 # Build the application
 RUN yarn build && \
     yarn cache clean && \
-    rm -rf /tmp/*
+    rm -rf /tmp/* && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /usr/local/share/.cache/yarn
 
 # Production stage
 FROM node:18-alpine AS runner
 
 WORKDIR /app
+
+# Clean up any existing files and caches
+RUN rm -rf /tmp/* && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /usr/local/share/.cache/yarn
 
 # Copy necessary files from builder
 COPY --from=builder /app/package.json /app/yarn.lock ./
@@ -44,7 +57,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # Clean up
 RUN yarn cache clean && \
     rm -rf /tmp/* && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apk/* && \
+    rm -rf /usr/local/share/.cache/yarn
 
 # Expose the port
 EXPOSE 3000
