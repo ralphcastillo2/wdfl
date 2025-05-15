@@ -1,10 +1,11 @@
 #!/bin/bash
+set -e
 
 # Install dependencies
-npm ci
+yarn install
 
 # Build the application
-NODE_ENV=production npm run build
+yarn build
 
 # Start the application
-npm start 
+yarn start 

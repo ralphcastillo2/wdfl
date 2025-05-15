@@ -1,15 +1,11 @@
 [phases.setup]
-nixPkgs = ['nodejs_18']
+nixPkgs = ["nodejs", "yarn"]
 
 [phases.install]
-cmds = ['chmod +x build.sh']
+cmds = ["yarn install"]
 
 [phases.build]
-cmds = ['./build.sh']
+cmds = ["yarn build"]
 
 [start]
-cmd = 'npm start'
-
-[variables]
-NODE_ENV = 'production'
-MONGODB_URI = '${MONGODB_URI}' 
+cmd = "yarn start" 
