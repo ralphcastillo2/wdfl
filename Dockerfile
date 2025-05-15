@@ -1,18 +1,40 @@
-FROM node:18-alpine
+# Build stage
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
 # Copy package files
 COPY package.json yarn.lock ./
 
-# Copy build script
-COPY build.sh ./
+# Install dependencies
+RUN yarn install --frozen-lockfile
 
-# Make build script executable
-RUN chmod +x build.sh
+# Copy the rest of the application
+COPY . .
 
-# Run build script
-RUN ./build.sh
+# Create .env.local file
+RUN echo "MONGODB_URI=mongodb+srv://dbdirectory1:sWC80Q8x21BrkqGi@cluster0.dsxjw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" > .env.local && \
+    echo "NODE_ENV=production" >> .env.local && \
+    echo "GOOGLE_PLACES_API_KEY=your_google_places_api_key_here" >> .env.local
+
+# Build the application
+RUN yarn build
+
+# Production stage
+FROM node:18-alpine AS runner
+
+WORKDIR /app
+
+# Copy necessary files from builder
+COPY --from=builder /app/package.json /app/yarn.lock ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/.env.local ./.env.local
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Expose the port
 EXPOSE 3000
