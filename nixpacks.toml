@@ -2,10 +2,14 @@
 nixPkgs = ["nodejs", "yarn"]
 
 [phases.install]
-cmds = ["yarn install"]
+cmds = ["yarn install --frozen-lockfile"]
 
 [phases.build]
 cmds = ["yarn build"]
 
 [start]
-cmd = "yarn start" 
+cmd = "yarn start"
+
+[variables]
+NODE_ENV = "production"
+NEXT_TELEMETRY_DISABLED = "1" 
