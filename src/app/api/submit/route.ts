@@ -6,18 +6,32 @@ let connectionInitialized = false;
 
 async function ensureConnection() {
   if (!connectionInitialized) {
-    await connectToDatabase();
+    const connection = await connectToDatabase();
+    if (!connection) {
+      return null;
+    }
     connectionInitialized = true;
   }
   
   if (!getConnectionStatus()) {
-    await connectToDatabase();
+    const connection = await connectToDatabase();
+    if (!connection) {
+      return null;
+    }
   }
+  
+  return true;
 }
 
 export async function POST(request: Request) {
   try {
-    await ensureConnection();
+    const connectionStatus = await ensureConnection();
+    if (!connectionStatus) {
+      return NextResponse.json(
+        { success: false, error: 'Database connection not available' },
+        { status: 503 }
+      );
+    }
     
     const db = mongoose.connection.db;
     if (!db) {

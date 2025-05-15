@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
-}
-
 const MONGODB_URI = process.env.MONGODB_URI;
 
 let isConnected = false;
@@ -11,6 +7,13 @@ let isConnected = false;
 export async function connectToDatabase() {
   if (isConnected) {
     return mongoose.connection;
+  }
+
+  if (!MONGODB_URI) {
+    if (process.env.NODE_ENV === 'development') {
+      throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+    }
+    return null;
   }
 
   try {
