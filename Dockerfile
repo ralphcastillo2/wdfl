@@ -3,20 +3,25 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
+# Set platform-specific environment variables
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+
 # Clean up any existing files and caches
 RUN rm -rf /tmp/* && \
     rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/share/.cache/yarn
+    rm -rf /usr/local/share/.cache/npm
 
 # Copy package files
-COPY package.json yarn.lock ./
+COPY package.json package-lock.json ./
 
 # Install dependencies with aggressive cleanup
-RUN yarn install --frozen-lockfile --network-timeout 100000 --no-optional && \
-    yarn cache clean && \
+RUN npm ci --no-optional && \
+    npm cache clean --force && \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/share/.cache/yarn
+    rm -rf /usr/local/share/.cache/npm
 
 # Copy the rest of the application
 COPY . .
@@ -27,41 +32,42 @@ RUN echo "MONGODB_URI=mongodb+srv://dbdirectory1:sWC80Q8x21BrkqGi@cluster0.dsxjw
     echo "GOOGLE_PLACES_API_KEY=your_google_places_api_key_here" >> .env.local
 
 # Build the application
-RUN yarn build && \
-    yarn cache clean && \
+RUN npm run build && \
+    npm cache clean --force && \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/share/.cache/yarn
+    rm -rf /usr/local/share/.cache/npm
 
 # Production stage
 FROM node:18-alpine AS runner
 
 WORKDIR /app
 
+# Set platform-specific environment variables
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+
 # Clean up any existing files and caches
 RUN rm -rf /tmp/* && \
     rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/share/.cache/yarn
+    rm -rf /usr/local/share/.cache/npm
 
 # Copy necessary files from builder
-COPY --from=builder /app/package.json /app/yarn.lock ./
+COPY --from=builder /app/package.json /app/package-lock.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.env.local ./.env.local
 
-# Set environment variables
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-
 # Clean up
-RUN yarn cache clean && \
+RUN npm cache clean --force && \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/share/.cache/yarn
+    rm -rf /usr/local/share/.cache/npm
 
 # Expose the port
 EXPOSE 3000
 
 # Start the application
-CMD ["yarn", "start"] 
+CMD ["npm", "start"] 
