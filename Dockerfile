@@ -6,9 +6,11 @@ WORKDIR /app
 # Copy package files
 COPY package.json yarn.lock ./
 
-# Install dependencies with cleanup
-RUN yarn install --frozen-lockfile && \
-    yarn cache clean
+# Install dependencies with aggressive cleanup
+RUN yarn install --frozen-lockfile --network-timeout 100000 && \
+    yarn cache clean && \
+    rm -rf /tmp/* && \
+    rm -rf /var/cache/apk/*
 
 # Copy the rest of the application
 COPY . .
@@ -19,7 +21,9 @@ RUN echo "MONGODB_URI=mongodb+srv://dbdirectory1:sWC80Q8x21BrkqGi@cluster0.dsxjw
     echo "GOOGLE_PLACES_API_KEY=your_google_places_api_key_here" >> .env.local
 
 # Build the application
-RUN yarn build
+RUN yarn build && \
+    yarn cache clean && \
+    rm -rf /tmp/*
 
 # Production stage
 FROM node:18-alpine AS runner
@@ -39,7 +43,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 # Clean up
 RUN yarn cache clean && \
-    rm -rf /tmp/*
+    rm -rf /tmp/* && \
+    rm -rf /var/cache/apk/*
 
 # Expose the port
 EXPOSE 3000
