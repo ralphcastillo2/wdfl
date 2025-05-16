@@ -26,10 +26,10 @@ RUN npm ci --no-optional && \
 # Copy the rest of the application
 COPY . .
 
-# Create .env.local file
+# Create .env.local file with environment variables
 RUN echo "MONGODB_URI=mongodb+srv://dbdirectory1:sWC80Q8x21BrkqGi@cluster0.dsxjw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" > .env.local && \
     echo "NODE_ENV=production" >> .env.local && \
-    echo "GOOGLE_PLACES_API_KEY=your_google_places_api_key_here" >> .env.local
+    echo "GOOGLE_PLACES_API_KEY=${GOOGLE_PLACES_API_KEY}" >> .env.local
 
 # Build the application
 RUN npm run build && \
