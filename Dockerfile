@@ -8,6 +8,10 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 ENV NEXT_SHARP_PATH=/app/node_modules/sharp
 
+# Add build arguments
+ARG GOOGLE_PLACES_API_KEY
+ENV GOOGLE_PLACES_API_KEY=$GOOGLE_PLACES_API_KEY
+
 # Clean up any existing files and caches
 RUN rm -rf /tmp/* && \
     rm -rf /var/cache/apk/* && \
@@ -47,6 +51,10 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+
+# Add build arguments
+ARG GOOGLE_PLACES_API_KEY
+ENV GOOGLE_PLACES_API_KEY=$GOOGLE_PLACES_API_KEY
 
 # Clean up any existing files and caches
 RUN rm -rf /tmp/* && \
