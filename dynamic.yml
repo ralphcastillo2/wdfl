@@ -1,0 +1,15 @@
+http:
+  routers:
+    weddingdirectory:
+      rule: "Host(`weddingdirectoryfl.com`)"
+      service: weddingdirectory
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+
+  services:
+    weddingdirectory:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:3000" 
