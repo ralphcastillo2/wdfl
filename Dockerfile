@@ -5,7 +5,6 @@ WORKDIR /app
 
 # Set platform-specific environment variables
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
 ENV NEXT_SHARP_PATH=/app/node_modules/sharp
 
 # Clean up any existing files and caches
