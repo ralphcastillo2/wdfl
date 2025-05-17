@@ -6,6 +6,7 @@ WORKDIR /app
 # Set platform-specific environment variables
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+ENV NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=${NEXT_PUBLIC_GOOGLE_PLACES_API_KEY}
 
 # Clean up any existing files and caches
 RUN rm -rf /tmp/* && \
@@ -41,6 +42,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+ENV NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=${NEXT_PUBLIC_GOOGLE_PLACES_API_KEY}
 
 # Clean up any existing files and caches
 RUN rm -rf /tmp/* && \

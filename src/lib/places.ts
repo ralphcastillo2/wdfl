@@ -1,7 +1,7 @@
 import { connectToDatabase } from './mongodb';
 import { PlaceCache, PlaceResult } from '../models/PlaceCache';
 
-const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
+const GOOGLE_PLACES_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY;
 
 if (!GOOGLE_PLACES_API_KEY) {
   throw new Error('GOOGLE_PLACES_API_KEY is not defined');
