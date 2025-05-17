@@ -50,8 +50,9 @@ ENV NEXT_SHARP_PATH=/app/node_modules/sharp
 ARG NEXT_PUBLIC_GOOGLE_PLACES_API_KEY
 ENV NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=${NEXT_PUBLIC_GOOGLE_PLACES_API_KEY}
 
-# Clean up any existing files and caches
-RUN rm -rf /tmp/* && \
+# Install curl for healthcheck
+RUN apk add --no-cache curl && \
+    rm -rf /tmp/* && \
     rm -rf /var/cache/apk/* && \
     rm -rf /usr/local/share/.cache/npm
 
