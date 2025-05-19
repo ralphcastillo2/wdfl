@@ -1,15 +1,29 @@
 http:
   routers:
-    weddingdirectory:
-      rule: "Host(`weddingdirectoryfl.com`)"
+    weddingdirectory-http:
+      rule: "Host(`weddingdirectoryfl.com`) || Host(`www.weddingdirectoryfl.com`)"
+      service: weddingdirectory
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+
+    weddingdirectory-https:
+      rule: "Host(`weddingdirectoryfl.com`) || Host(`www.weddingdirectoryfl.com`)"
       service: weddingdirectory
       entryPoints:
         - websecure
       tls:
         certResolver: letsencrypt
 
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
   services:
     weddingdirectory:
       loadBalancer:
         servers:
-          - url: "http://localhost:3000" 
+          - url: "http://app:3000" 
