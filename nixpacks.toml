@@ -13,4 +13,5 @@ cmd = "yarn start"
 [variables]
 NODE_ENV = "production"
 NEXT_TELEMETRY_DISABLED = "1"
-NIXPACKS_PATH = "/app" 
+NIXPACKS_PATH = "/app"
+NODE_OPTIONS = "--no-deprecation" 
