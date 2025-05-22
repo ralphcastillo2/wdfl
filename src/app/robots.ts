@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/*', '/admin/*'],
     },
-    sitemap: 'https://weddingdirectoryflorida.com/sitemap.xml',
+    sitemap: 'https://weddingdirectoryfl.com/sitemap.xml',
   };
 } 

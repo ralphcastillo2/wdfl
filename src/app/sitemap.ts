@@ -19,25 +19,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Base URLs
     const baseUrls = [
       {
-        url: 'https://weddingdirectoryflorida.com',
+        url: 'https://weddingdirectoryfl.com',
         lastModified: new Date(),
         changeFrequency: 'daily' as const,
         priority: 1,
       },
       {
-        url: 'https://weddingdirectoryflorida.com/about',
+        url: 'https://weddingdirectoryfl.com/about',
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       },
       {
-        url: 'https://weddingdirectoryflorida.com/contact',
+        url: 'https://weddingdirectoryfl.com/contact',
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       },
       {
-        url: 'https://weddingdirectoryflorida.com/categories',
+        url: 'https://weddingdirectoryfl.com/categories',
         lastModified: new Date(),
         changeFrequency: 'daily' as const,
         priority: 0.9,
@@ -46,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // City URLs
     const cityUrls = cities.map((city) => ({
-      url: `https://weddingdirectoryflorida.com/city/${encodeURIComponent(city.name.toLowerCase())}`,
+      url: `https://weddingdirectoryfl.com/city/${encodeURIComponent(city.name.toLowerCase())}`,
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 0.7,
@@ -54,7 +54,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Category URLs
     const categoryUrls = categories.map((category) => ({
-      url: `https://weddingdirectoryflorida.com/category/${encodeURIComponent(category.slug)}`,
+      url: `https://weddingdirectoryfl.com/category/${encodeURIComponent(category.slug)}`,
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 0.7,
@@ -68,25 +68,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Return at least the static URLs if there's an error
     return [
       {
-        url: 'https://weddingdirectoryflorida.com',
+        url: 'https://weddingdirectoryfl.com',
         lastModified: new Date(),
         changeFrequency: 'daily' as const,
         priority: 1,
       },
       {
-        url: 'https://weddingdirectoryflorida.com/about',
+        url: 'https://weddingdirectoryfl.com/about',
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       },
       {
-        url: 'https://weddingdirectoryflorida.com/contact',
+        url: 'https://weddingdirectoryfl.com/contact',
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       },
       {
-        url: 'https://weddingdirectoryflorida.com/categories',
+        url: 'https://weddingdirectoryfl.com/categories',
         lastModified: new Date(),
         changeFrequency: 'daily' as const,
         priority: 0.9,

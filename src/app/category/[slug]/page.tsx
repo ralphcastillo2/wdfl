@@ -17,7 +17,7 @@ async function searchPlaces(category: string, city: string) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Goog-Api-Key': process.env.GOOGLE_PLACES_API_KEY || '',
+        'X-Goog-Api-Key': process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY || '',
         'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.websiteUri,places.rating,places.userRatingCount',
       },
       body: JSON.stringify({
