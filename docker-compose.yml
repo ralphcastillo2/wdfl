@@ -15,12 +15,20 @@ services:
       - traefik-certificates:/etc/traefik/certificates
     networks:
       - traefik-public
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   app:
     build: .
     restart: unless-stopped
     networks:
       - traefik-public
+    deploy:
+      resources:
+        limits:
+          memory: 1G
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.weddingdirectory-http.rule=Host(`weddingdirectoryfl.com`) || Host(`www.weddingdirectoryfl.com`)"
