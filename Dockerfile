@@ -6,6 +6,7 @@ WORKDIR /app
 # Set platform-specific environment variables
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+ENV NODE_OPTIONS="--max-old-space-size=2048"
 
 # Add build argument
 ARG NEXT_PUBLIC_GOOGLE_PLACES_API_KEY
@@ -29,7 +30,7 @@ RUN npm install && \
 # Copy the rest of the application
 COPY . .
 
-# Build the application
+# Build the application with increased memory and CPU usage
 RUN npm run build && \
     npm cache clean --force && \
     rm -rf /tmp/* && \
@@ -45,6 +46,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+ENV NODE_OPTIONS="--max-old-space-size=2048"
 
 # Add build argument again for production stage
 ARG NEXT_PUBLIC_GOOGLE_PLACES_API_KEY
