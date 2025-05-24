@@ -13,13 +13,7 @@ const nextConfig = {
       },
     ],
   },
-  // Ensure proper asset handling
   assetPrefix: process.env.NODE_ENV === 'production' ? '' : undefined,
-};
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'standalone',
 };
 
 module.exports = nextConfig;
