@@ -17,4 +17,9 @@ const nextConfig = {
   assetPrefix: process.env.NODE_ENV === 'production' ? '' : undefined,
 };
 
-module.exports = nextConfig; 
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'standalone',
+};
+
+module.exports = nextConfig;

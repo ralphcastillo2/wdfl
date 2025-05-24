@@ -18,10 +18,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 512M
-          cpus: '0.5'
+          memory: 1G
+          cpus: '2'
         reservations:
-          cpus: '0.2'
+          cpus: '2'
 
   app:
     build: .
@@ -31,10 +31,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1G
-          cpus: '1.5'
+          memory: 2G
+          cpus: '2'
         reservations:
-          cpus: '0.5'
+          cpus: '1'
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.weddingdirectory-http.rule=Host(`weddingdirectoryfl.com`) || Host(`www.weddingdirectoryfl.com`)"

@@ -1,81 +1,47 @@
-# Build stage
+# --- Build Stage ---
 FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Set platform-specific environment variables
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NEXT_SHARP_PATH=/app/node_modules/sharp
-ENV NODE_OPTIONS="--max-old-space-size=2048"
+ENV NODE_OPTIONS="--max-old-space-size=3072"
 
-# Add build argument
+# Add API key for build
 ARG NEXT_PUBLIC_GOOGLE_PLACES_API_KEY
 ENV NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=${NEXT_PUBLIC_GOOGLE_PLACES_API_KEY}
 
-# Clean up any existing files and caches
-RUN rm -rf /tmp/* && \
-    rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/share/.cache/npm
-
-# Copy package files
+# Install dependencies
 COPY package.json package-lock.json ./
+RUN npm install
 
-# Install dependencies with aggressive cleanup
-RUN npm install && \
-    npm cache clean --force && \
-    rm -rf /tmp/* && \
-    rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/share/.cache/npm
-
-# Copy the rest of the application
+# Copy the app source code
 COPY . .
 
-# Build the application with increased memory and CPU usage
-RUN npm run build && \
-    npm cache clean --force && \
-    rm -rf /tmp/* && \
-    rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/share/.cache/npm
+# Build the Next.js app
+RUN npm run build
 
-# Production stage
+# --- Production Runner Stage ---
 FROM node:18-alpine AS runner
 
 WORKDIR /app
 
-# Set platform-specific environment variables
-ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
-ENV NEXT_SHARP_PATH=/app/node_modules/sharp
-ENV NODE_OPTIONS="--max-old-space-size=2048"
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_OPTIONS="--max-old-space-size=3072"
 
-# Add build argument again for production stage
-ARG NEXT_PUBLIC_GOOGLE_PLACES_API_KEY
-ENV NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=${NEXT_PUBLIC_GOOGLE_PLACES_API_KEY}
+# Install curl for health check
+RUN apk add --no-cache curl
 
-# Install curl for healthcheck
-RUN apk add --no-cache curl && \
-    rm -rf /tmp/* && \
-    rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/share/.cache/npm
-
-# Copy necessary files from builder
-COPY --from=builder /app/package.json /app/package-lock.json ./
-COPY --from=builder /app/.next ./.next
+# Copy the standalone app output
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
 
-# Clean up
-RUN npm cache clean --force && \
-    rm -rf /tmp/* && \
-    rm -rf /var/cache/apk/* && \
-    rm -rf /usr/local/share/.cache/npm
+# Healthcheck hitting /api/health
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/api/health || exit 1
 
-# Expose the port
+# Expose port and start
 EXPOSE 3000
 
-# Add healthcheck
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3000/ || exit 1
-
-# Start the application
-CMD ["npm", "start"] 
+CMD ["node", "server.js"] 
