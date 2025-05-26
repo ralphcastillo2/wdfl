@@ -54,3 +54,15 @@ export async function POST(request: Request) {
     );
   }
 } 
+
+    import { NextResponse } from 'next/server';
+
+export async function GET() {
+  return NextResponse.json({ status: 'ok' });
+}
+// This GET handler is a simple health check endpoint
+// that returns a JSON response indicating the service is running.
+// It can be used to verify that the API is operational.
+// It does not interact with the database and is used for monitoring purposes.
+// The POST handler is responsible for handling form submissions,
+
