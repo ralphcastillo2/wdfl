@@ -7,8 +7,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_OPTIONS="--max-old-space-size=3072"
 
 # Add API key for build
-ARG GOOGLE_PLACES_API_KEY
-ENV GOOGLE_PLACES_API_KEY=$GOOGLE_PLACES_API_KEY
+ARG NEXT_PUBLIC_GOOGLE_PLACES_API_KEY
+ENV NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=$NEXT_PUBLIC_GOOGLE_PLACES_API_KEY
 
 # Install dependencies
 COPY package.json package-lock.json ./
@@ -29,6 +29,10 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_OPTIONS="--max-old-space-size=3072"
 
+# Add API key for runtime
+ARG NEXT_PUBLIC_GOOGLE_PLACES_API_KEY
+ENV NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=$NEXT_PUBLIC_GOOGLE_PLACES_API_KEY
+
 # Install curl for health check
 RUN apk add --no-cache curl
 
@@ -44,4 +48,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
 # Expose port and start
 EXPOSE 3000
 
-CMD ["node", "server.js"] 
+CMD ["node", "server.js"]
