@@ -76,13 +76,13 @@ export const categories: Category[] = [
     name: "Planning",
     slug: "wedding-planner",
     title: "Wedding Planners",
-    description: "Professional wedding planners to coordinate your special day"
+    description: "Professional Wedding Planners to coordinate your special day"
   }
   {
     name: "Transportation",
     slug: "transportation",
     title: "Wedding Transportations",
-    description: "Professional WeddingvvTransportations to coordinate your special day"
+    description: "Professional Wedding Transportations to coordinate your special day"
   }
   {
     name: "Officiant",
