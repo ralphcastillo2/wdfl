@@ -77,41 +77,41 @@ export const categories: Category[] = [
     slug: "wedding-planner",
     title: "Wedding Planners",
     description: "Professional Wedding Planners to coordinate your special day"
-  }
+  },
   {
     name: "Transportation",
     slug: "transportation",
     title: "Wedding Transportations",
     description: "Professional Wedding Transportations to coordinate your special day"
-  }
+  },
   {
     name: "Officiant",
     slug: "officiant",
     title: "Officiants",
     description: "Professional Wedding Officiants to coordinate your special day"
-  }
+  },
   {
     name: "Rentals",
     slug: "rentals",
     title: "Wedding Rentals",
     description: "Professional Wedding Rentals to coordinate your special day"
-  }
+  },
   {
     name: "Haire and Makeup",
     slug: "hair-and-makeup",
     title: "Wedding Haire and Makeup",
     description: "Professional Wedding Hair and Makeup to coordinate your special day"
-  }
-   {
+  },
+  {
     name: "Centerpieces",
     slug: "centerpieces",
     title: "Wedding Centerpieces",
     description: "Professional Wedding Cenerpieces to coordinate your special day"
-  }
+  },
   {
     name: "Thank You Cards",
     slug: "thank-you-cards",
     title: "Wedding Thank You Cards",
     description: "Professional Wedding Thank You Cards to coordinate your special day"
   }
-]; 
+];
