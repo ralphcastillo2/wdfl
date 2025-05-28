@@ -125,4 +125,4 @@ export default async function CategoryPage({ params }: Props) {
   );
 } 
 
-console.log('GOOGLE_PLACES_API_KEY:', process.env.GOOGLE_PLACES_API_KEY);
+console.log('GOOGLE_PLACES_API_KEY:', process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY);
