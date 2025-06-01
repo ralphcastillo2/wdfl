@@ -1,4 +1,4 @@
-import { connectToDatabase } from './mongodb';
+console.log('GOOGLE_PLACES_API_KEY:', process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY);import { connectToDatabase } from './mongodb';
 import { PlaceCache, PlaceResult } from '../models/PlaceCache';
 
 const GOOGLE_PLACES_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY;

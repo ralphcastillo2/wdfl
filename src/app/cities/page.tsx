@@ -46,7 +46,6 @@ export default function CitiesPage() {
                 <h2 className="text-xl font-bold text-gray-900">
                   {city.name}
                 </h2>
-                <span className="text-xs text-gray-500">#{city.rank}</span>
               </div>
               <div className="mb-4 flex items-center gap-2">
                 <span className="text-sm text-gray-600">{city.county} County</span>
