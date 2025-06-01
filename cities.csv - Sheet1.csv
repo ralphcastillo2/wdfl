@@ -6,7 +6,11 @@ Orlando,City,Orange
 St. Petersburg,City,Pinellas
 Hialeah,City,Miami-Dade
 Port St. Lucie,City,St. Lucie
+<<<<<<< HEAD
 Tallahassee,City,Leon,196169
+=======
+Tallahassee,City,Leon
+>>>>>>> 20e3e0ee63f77740da2fa7741dc0a4d3307e5946
 Cape Coral,City,Lee
 1Fort Lauderdale,City,Broward
 Pembroke Pines,City,Broward 
@@ -99,3 +103,7 @@ Temple Terrace,City,Hillsborough
 Haines City,City,Polk
 Key West,City,Monroe
 West Melbourne,City,Brevard
+<<<<<<< HEAD
+=======
+
+>>>>>>> 20e3e0ee63f77740da2fa7741dc0a4d3307e5946
